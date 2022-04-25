@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "161231/metadata_container"
+        DOCKER_IMAGE_NAME = "161231/metadata-service"
         DOCKER_USERNAME = "161231"
         DOCKER_PASSWORD = credentials('DOCKER_SECRET')
     }
@@ -27,7 +27,7 @@ pipeline {
                 sh '''
                     echo "pushing docker image ......."
                     docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                    docker tag "${DOCKER_IMAGE_NAME}” "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
+                    docker tag "${DOCKER_IMAGE_NAME}" "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
                     docker push "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
                     docker push "${DOCKER_IMAGE_NAME}":latest
                     echo "cleaning up the local images ......."
